@@ -66,7 +66,15 @@ var Tilt = function (_Component) {
   _createClass(Tilt, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.element = (0, _reactDom.findDOMNode)(this);
+      var myNode = this.getDOMNode();
+      setTimeout(function () {
+        if (myNode.parentElement.querySelector(':hover') === myNode) {
+          _this2.onMouseEnter();
+        }
+      }, 0);
     }
   }, {
     key: 'componentWillUnmount',
@@ -95,12 +103,12 @@ var Tilt = function (_Component) {
   }, {
     key: 'reset',
     value: function reset() {
-      var _this2 = this;
+      var _this3 = this;
 
       window.requestAnimationFrame(function () {
-        _this2.setState(Object.assign({}, _this2.state, {
-          style: _extends({}, _this2.state.style, {
-            transform: "perspective(" + _this2.settings.perspective + "px) " + "rotateX(0deg) " + "rotateY(0deg) " + "scale3d(1, 1, 1)" })
+        _this3.setState(Object.assign({}, _this3.state, {
+          style: _extends({}, _this3.state.style, {
+            transform: "perspective(" + _this3.settings.perspective + "px) " + "rotateX(0deg) " + "rotateY(0deg) " + "scale3d(1, 1, 1)" })
         }));
       });
     }
@@ -111,6 +119,7 @@ var Tilt = function (_Component) {
       var e = arguments[1];
 
       e.persist();
+      this.updateElementPosition();
 
       if (this.updateCall !== null) {
         window.cancelAnimationFrame(this.updateCall);
@@ -124,7 +133,7 @@ var Tilt = function (_Component) {
   }, {
     key: 'setTransition',
     value: function setTransition() {
-      var _this3 = this;
+      var _this4 = this;
 
       clearTimeout(this.transitionTimeout);
 
@@ -135,8 +144,8 @@ var Tilt = function (_Component) {
       }));
 
       this.transitionTimeout = setTimeout(function () {
-        _this3.setState(Object.assign({}, _this3.state, {
-          style: _extends({}, _this3.state.style, {
+        _this4.setState(Object.assign({}, _this4.state, {
+          style: _extends({}, _this4.state.style, {
             transition: ''
           })
         }));
